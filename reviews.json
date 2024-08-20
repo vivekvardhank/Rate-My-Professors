@@ -1,0 +1,123 @@
+[
+    {
+      "Professor": "Dr. Jane Smith",
+      "Subject": "Physics",
+      "stars": 5,
+      "review": "Dr. Smith is an excellent professor. She explains complex topics in a very clear and understandable way. Her lectures are engaging, and she is always willing to help students."
+    },
+    {
+      "Professor": "Dr. John Doe",
+      "Subject": "Mathematics",
+      "stars": 4,
+      "review": "Dr. Doe is very knowledgeable, but his lectures can be a bit fast-paced. It's important to keep up with the material. However, he is always available during office hours."
+    },
+    {
+      "Professor": "Dr. Emily Johnson",
+      "Subject": "Chemistry",
+      "stars": 3,
+      "review": "Dr. Johnson is a decent professor, but her lectures can be a bit monotonous. She knows the subject well, but sometimes struggles to convey the material effectively."
+    },
+    {
+      "Professor": "Dr. Mark Williams",
+      "Subject": "History",
+      "stars": 2,
+      "review": "Dr. Williams is a tough grader and his lectures are often dry. He expects a lot from students, but doesn't provide much support outside of class."
+    },
+    {
+      "Professor": "Dr. Sarah Davis",
+      "Subject": "Biology",
+      "stars": 4,
+      "review": "Dr. Davis is a great professor. She makes the material interesting and is very approachable. However, the exams can be challenging."
+    },
+    {
+      "Professor": "Dr. Robert Brown",
+      "Subject": "Philosophy",
+      "stars": 5,
+      "review": "Dr. Brown is an amazing professor. His lectures are thought-provoking and he encourages deep discussions. A must-take class!"
+    },
+    {
+      "Professor": "Dr. Laura Miller",
+      "Subject": "Economics",
+      "stars": 3,
+      "review": "Dr. Miller's lectures are informative but can be a bit dry. She is knowledgeable but sometimes hard to follow."
+    },
+    {
+      "Professor": "Dr. Michael Anderson",
+      "Subject": "Computer Science",
+      "stars": 4,
+      "review": "Dr. Anderson is very knowledgeable and his lectures are well-structured. However, the assignments can be quite difficult."
+    },
+    {
+      "Professor": "Dr. Karen Martinez",
+      "Subject": "Sociology",
+      "stars": 5,
+      "review": "Dr. Martinez is a fantastic professor. She is very engaging and really cares about her students. Her classes are always interesting."
+    },
+    {
+      "Professor": "Dr. Daniel Lee",
+      "Subject": "Political Science",
+      "stars": 3,
+      "review": "Dr. Lee's lectures are informative, but sometimes lack depth. He is a fair grader but doesn't offer much support outside of class."
+    },
+    {
+      "Professor": "Dr. Jessica Garcia",
+      "Subject": "Literature",
+      "stars": 5,
+      "review": "Dr. Garcia is a wonderful professor. Her passion for literature is contagious and her classes are always enjoyable."
+    },
+    {
+      "Professor": "Dr. Richard Wilson",
+      "Subject": "Physics",
+      "stars": 2,
+      "review": "Dr. Wilson's lectures are very difficult to follow. He is knowledgeable, but his teaching style is not very effective."
+    },
+    {
+      "Professor": "Dr. Amy Thompson",
+      "Subject": "Psychology",
+      "stars": 4,
+      "review": "Dr. Thompson is a good professor. She is clear in her explanations and her exams are fair. The material can be challenging but rewarding."
+    },
+    {
+      "Professor": "Dr. William White",
+      "Subject": "Anthropology",
+      "stars": 3,
+      "review": "Dr. White is an average professor. His lectures are informative but not very engaging. The exams are straightforward."
+    },
+    {
+      "Professor": "Dr. Megan Harris",
+      "Subject": "Statistics",
+      "stars": 4,
+      "review": "Dr. Harris is a solid professor. Her lectures are clear and well-organized. However, the homework can be quite challenging."
+    },
+    {
+      "Professor": "Dr. Kevin Clark",
+      "Subject": "Philosophy",
+      "stars": 5,
+      "review": "Dr. Clark is an outstanding professor. He is very knowledgeable and his lectures are always interesting and engaging."
+    },
+    {
+      "Professor": "Dr. Angela Lewis",
+      "Subject": "History",
+      "stars": 2,
+      "review": "Dr. Lewis's lectures are very dry and it's hard to stay engaged. The material is interesting, but her teaching style is not."
+    },
+    {
+      "Professor": "Dr. Thomas Robinson",
+      "Subject": "Economics",
+      "stars": 3,
+      "review": "Dr. Robinson is a decent professor. His lectures are straightforward but not particularly engaging. The exams are fair."
+    },
+    {
+      "Professor": "Dr. Rachel Hall",
+      "Subject": "Chemistry",
+      "stars": 4,
+      "review": "Dr. Hall is a good professor. She explains the material well and is always willing to help students. The labs can be challenging."
+    },
+    {
+      "Professor": "Dr. James Scott",
+      "Subject": "Mathematics",
+      "stars": 5,
+      "review": "Dr. Scott is an excellent professor. His explanations are clear and he makes difficult concepts easy to understand."
+    }
+  ]
+  
