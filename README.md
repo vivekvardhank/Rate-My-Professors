@@ -3,7 +3,7 @@
 
 # Rate My Professors RAG App
 
-Rate My Professors RAG App. This was created as a group project created by Rabia Ghafoor, Bhavana Gupta, Adeel Sammer, and Vivek Vardhan.
+Rate My Professors RAG App. This was created as a group project created by Rabia Ghafoor, Bhavana Gupta, Adeel Sameer, and Vivek Vardhan.
 
 
 ## Features
