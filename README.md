@@ -3,10 +3,8 @@
 
 # Rate My Professors RAG App
 
-Flashcards-App is a SaaS (Software as a Service) application designed to generate AI-powered flashcards. The app leverages cutting-edge technologies such as Next.js, Clerk, Firebase, OpenAI, and Stripe to provide a seamless user experience. This was created as a group project created by Rabia Ghafoor, Bhavana Gupta, Adeel Sammer, and Vivek Vardhan.
+Rate My Professors RAG App. This was created as a group project created by Rabia Ghafoor, Bhavana Gupta, Adeel Sammer, and Vivek Vardhan.
 
-# Join the Waitlist By Completing this form
-https://tally.so/r/w7oa2A
 
 ## Features
 
