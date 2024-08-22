@@ -1,7 +1,9 @@
+// page.js
+
 'use client'
 
 import { useState } from "react";
-import { Box, TextField, Stack, Button } from "@mui/material";
+import { Box, TextField, Stack, Button, Typography } from "@mui/material";
 
 export default function Home() {
   const [messages, setMessages] = useState([
@@ -72,15 +74,23 @@ export default function Home() {
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
+      bgcolor="#f5f5f5"  // Light background color for better readability
+      p={3}
     >
       <Stack
         direction="column"
         width="500px"
         height="700px"
-        border="1px solid black"
+        border="1px solid #ccc"  // Light gray border
+        borderRadius={4}  // Rounded corners for a modern look
+        bgcolor="white"  // White background for the chatbox
+        boxShadow={2}  // Slight shadow for depth
         p={2}
         spacing={3}
       >
+        <Typography variant="h6" align="center">
+          Rate My Professors Chatbot
+        </Typography>
         <Stack
           direction="column"
           spacing={2}
@@ -102,27 +112,28 @@ export default function Home() {
                 }
                 color="white"
                 borderRadius={16}
-                p={3}
+                p={2}
+                maxWidth="75%"
               >
                 {message.content}
               </Box>
             </Box>
           ))}
         </Stack>
-      </Stack>
 
-      <Stack direction="row" spacing={2}>
-        <TextField
-          label="Message"
-          fullWidth
-          value={message}
-          onChange={(e) => {
-            setMessage(e.target.value);
-          }}
-        />
-        <Button variant="contained" onClick={sendMessage}>
-          Send
-        </Button>
+        <Stack direction="row" spacing={2}>
+          <TextField
+            label="Type your message..."
+            fullWidth
+            value={message}
+            onChange={(e) => {
+              setMessage(e.target.value);
+            }}
+          />
+          <Button variant="contained" onClick={sendMessage}>
+            Send
+          </Button>
+        </Stack>
       </Stack>
     </Box>
   );
