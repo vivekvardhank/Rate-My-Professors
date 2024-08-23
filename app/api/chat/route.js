@@ -65,7 +65,7 @@ export async function POST(req) {
 
         // Create embeddings
         const embeddings = await openai.embeddings.create({
-            model: "text-embedding-ada-002", // Ensure this is the correct model
+            model: "text-embedding-3-small", 
             input: text,
         });
 
@@ -99,7 +99,7 @@ export async function POST(req) {
                 ...lastDataWithoutLastMessage,
                 { role: 'user', content: lastMessageContent },
             ],
-            model: "gpt-4-turbo", // Ensure this is the correct model
+            model: "gpt-4o-mini", 
             stream: true,
         });
 

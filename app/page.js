@@ -1,5 +1,3 @@
-// page.js
-
 'use client'
 
 import { useState } from "react";
@@ -16,9 +14,7 @@ export default function Home() {
   const [message, setMessage] = useState('');
 
   const sendMessage = async () => {
-    if (message.trim() === '') return; // Prevent sending empty messages
-
-    // Update messages state with the new message
+    if (message.trim() === '') return; 
     setMessages((messages) => [
       ...messages,
       { role: "user", content: message },
