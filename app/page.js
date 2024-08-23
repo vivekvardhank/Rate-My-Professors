@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { Box, TextField, Stack, Button, Typography } from "@mui/material";
+import ReactMarkdown from "react-markdown";
+
 
 export default function Home() {
   const [messages, setMessages] = useState([
@@ -111,7 +113,7 @@ export default function Home() {
                 p={2}
                 maxWidth="75%"
               >
-                {message.content}
+               <ReactMarkdown>{message.content}</ReactMarkdown>
               </Box>
             </Box>
           ))}
