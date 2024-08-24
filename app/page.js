@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Box, TextField, Stack, Button, Typography } from "@mui/material";
 import ReactMarkdown from "react-markdown";
 
@@ -14,15 +14,19 @@ export default function Home() {
   ]);
 
   const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+  const messagesEndRef = useRef(null);
 
   const sendMessage = async () => {
     if (message.trim() === '') return; 
+    setLoading(true);
+    setMessage('');
     setMessages((messages) => [
       ...messages,
       { role: "user", content: message },
       { role: "assistant", content: '' }
     ]);
-
+  
     try {
       const response = await fetch('/api/chat', {
         method: "POST",
@@ -38,6 +42,7 @@ export default function Home() {
 
       const processText = async ({ done, value }) => {
         if (done) {
+          setLoading(false);
           return result;
         }
 
@@ -59,10 +64,22 @@ export default function Home() {
       await reader.read().then(processText);
     } catch (error) {
       console.error("Failed to send message:", error);
+      setLoading(false);
     }
-
-    setMessage(''); // Clears the input field after sending the message
   };
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter' && !loading) {
+      event.preventDefault(); 
+      sendMessage(); 
+    }
+  };
+
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages]);
 
   return (
     <Box
@@ -87,7 +104,7 @@ export default function Home() {
         spacing={3}
       >
         <Typography variant="h6" align="center">
-          Rate My Professors Chatbot
+          Rate My Professors
         </Typography>
         <Stack
           direction="column"
@@ -109,14 +126,15 @@ export default function Home() {
                   message.role === 'assistant' ? 'primary.main' : 'secondary.main'
                 }
                 color="white"
-                borderRadius={16}
-                p={2}
-                maxWidth="75%"
+                borderRadius={11}
+                p={3}
+                maxWidth="80%"
               >
                <ReactMarkdown>{message.content}</ReactMarkdown>
               </Box>
             </Box>
           ))}
+          <div ref={messagesEndRef} />
         </Stack>
 
         <Stack direction="row" spacing={2}>
@@ -127,8 +145,9 @@ export default function Home() {
             onChange={(e) => {
               setMessage(e.target.value);
             }}
+            onKeyDown={handleKeyPress}
           />
-          <Button variant="contained" onClick={sendMessage}>
+          <Button variant="contained" onClick={sendMessage} disabled={loading}>
             Send
           </Button>
         </Stack>
