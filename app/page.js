@@ -1,9 +1,29 @@
 'use client'
 
+import { styled } from '@mui/system';
+import { Box, Stack, TextField, Button, Typography, CircularProgress } from '@mui/material';
 import { useState, useEffect, useRef } from "react";
-import { Box, TextField, Stack, Button, Typography, CircularProgress } from "@mui/material";
 import ReactMarkdown from "react-markdown";
 
+
+const CustomScrollBox = styled(Stack)({
+  overflowY: 'auto',
+  '&::-webkit-scrollbar': {
+    width: '6px', 
+  },
+  '&::-webkit-scrollbar-track': {
+    background: '#333333', 
+  },
+  '&::-webkit-scrollbar-thumb': {
+    backgroundColor: '#555555', 
+    borderRadius: '10px', 
+    border: '2px solid #333333', 
+  },
+  '&': {
+    scrollbarWidth: 'thin', 
+    scrollbarColor: '#555555 #333333', 
+  },
+});
 
 export default function Home() {
   const [messages, setMessages] = useState([
@@ -91,22 +111,41 @@ export default function Home() {
       alignItems="center"
       bgcolor="#121212"
       p={3}
+      sx={{
+        '@media (max-width: 600px)': {
+          width: '100vw',
+          height: '100vh',
+          padding: '0',
+        },
+      }}
     >
-      <Stack
+      <CustomScrollBox
         direction="column"
-        width="450px"
-        height="600px"
+        width="100%"
+        maxWidth="450px"
+        height="100%"
+        maxHeight="600px"
         border="1px solid #333333"
         borderRadius={8}
         bgcolor="#1f1f1f"
         boxShadow="0px 4px 12px rgba(0, 0, 0, 0.5)"
         p={3}
         spacing={3}
+        sx={{
+          '@media (max-width: 600px)': {
+            maxWidth: '100%',
+            maxHeight: '100%',
+            borderRadius: 0,
+            boxShadow: 'none',
+            border: 'none',
+            padding: '16px',
+          },
+        }}
       >
         <Typography variant="h5" align="center" color="#e0e0e0">
           Rate My Professors
         </Typography>
-        <Stack
+        <CustomScrollBox
           direction="column"
           spacing={2}
           flexGrow={1}
@@ -143,7 +182,7 @@ export default function Home() {
             </Box>
           ))}
           <div ref={messagesEndRef} />
-        </Stack>
+        </CustomScrollBox>
 
         <Stack direction="row" spacing={2}>
           <TextField
@@ -182,7 +221,7 @@ export default function Home() {
             {loading ? <CircularProgress size={24} color="inherit" /> : "Send"}
           </Button>
         </Stack>
-      </Stack>
+      </CustomScrollBox>
     </Box>
   );
 }
