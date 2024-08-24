@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from "react";
-import { Box, TextField, Stack, Button, Typography } from "@mui/material";
+import { Box, TextField, Stack, Button, Typography, CircularProgress } from "@mui/material";
 import ReactMarkdown from "react-markdown";
 
 
@@ -18,7 +18,7 @@ export default function Home() {
   const messagesEndRef = useRef(null);
 
   const sendMessage = async () => {
-    if (message.trim() === '') return; 
+    if (message.trim() === '') return;
     setLoading(true);
     setMessage('');
     setMessages((messages) => [
@@ -26,7 +26,7 @@ export default function Home() {
       { role: "user", content: message },
       { role: "assistant", content: '' }
     ]);
-  
+
     try {
       const response = await fetch('/api/chat', {
         method: "POST",
@@ -70,8 +70,8 @@ export default function Home() {
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter' && !loading) {
-      event.preventDefault(); 
-      sendMessage(); 
+      event.preventDefault();
+      sendMessage();
     }
   };
 
@@ -89,29 +89,30 @@ export default function Home() {
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
-      bgcolor="#f5f5f5"  // Light background color for better readability
+      bgcolor="#121212"
       p={3}
     >
       <Stack
         direction="column"
-        width="500px"
-        height="700px"
-        border="1px solid #ccc"  // Light gray border
-        borderRadius={4}  // Rounded corners for a modern look
-        bgcolor="white"  // White background for the chatbox
-        boxShadow={2}  // Slight shadow for depth
-        p={2}
+        width="450px"
+        height="600px"
+        border="1px solid #333333"
+        borderRadius={8}
+        bgcolor="#1f1f1f"
+        boxShadow="0px 4px 12px rgba(0, 0, 0, 0.5)"
+        p={3}
         spacing={3}
       >
-        <Typography variant="h6" align="center">
+        <Typography variant="h5" align="center" color="#e0e0e0">
           Rate My Professors
         </Typography>
         <Stack
           direction="column"
           spacing={2}
           flexGrow={1}
-          overflow={'auto'}
-          maxHeight={'100%'}
+          overflow="auto"
+          maxHeight="100%"
+          paddingX={2}
         >
           {messages.map((message, index) => (
             <Box
@@ -123,14 +124,21 @@ export default function Home() {
             >
               <Box
                 bgcolor={
-                  message.role === 'assistant' ? 'primary.main' : 'secondary.main'
+                  message.role === 'assistant' ? '#2d6a4f' : '#457b9d'
                 }
                 color="white"
-                borderRadius={11}
-                p={3}
-                maxWidth="80%"
+                borderRadius={2}
+                p={1.5}
+                maxWidth="75%"
+                boxShadow="0px 2px 8px rgba(0, 0, 0, 0.5)"
+                sx={{
+                  '& ul, & ol': {
+                    paddingLeft: '10px',
+                    marginLeft: '7px',
+                  },
+                }}
               >
-               <ReactMarkdown>{message.content}</ReactMarkdown>
+                <ReactMarkdown>{message.content}</ReactMarkdown>
               </Box>
             </Box>
           ))}
@@ -146,9 +154,32 @@ export default function Home() {
               setMessage(e.target.value);
             }}
             onKeyDown={handleKeyPress}
+            variant="outlined"
+            InputLabelProps={{
+              style: {
+                color: '#e0e0e0'
+              },
+            }}
+            InputProps={{
+              style: {
+                color: '#e0e0e0',
+                borderRadius: 25,
+                backgroundColor: '#333333',
+              },
+            }}
           />
-          <Button variant="contained" onClick={sendMessage} disabled={loading}>
-            Send
+          <Button
+            variant="contained"
+            onClick={sendMessage}
+            disabled={loading}
+            style={{
+              borderRadius: 25,
+              minWidth: '80px',
+              backgroundColor: '#457b9d',
+              color: '#ffffff'
+            }}
+          >
+            {loading ? <CircularProgress size={24} color="inherit" /> : "Send"}
           </Button>
         </Stack>
       </Stack>
