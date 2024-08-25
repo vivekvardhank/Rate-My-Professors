@@ -1,7 +1,7 @@
 'use client'
 
 import { styled } from '@mui/system';
-import { Box, Stack, TextField, Button, Typography, CircularProgress } from '@mui/material';
+import { Box, Stack, TextField, Button, Typography, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, Rating, Snackbar, Alert } from '@mui/material';
 import { useState, useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 
@@ -35,6 +35,15 @@ export default function Home() {
 
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [professorURL, setProfessorURL] = useState('');
+  const [rating, setRating] = useState(0); 
+  const [review, setReview] = useState(''); 
+  const [urlError, setUrlError] = useState(false);
+  const [ratingError, setRatingError] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = useState('success');
+  const [addLoading, setAddLoading] = useState(false); // Loading state for the Add button
   const messagesEndRef = useRef(null);
 
   const sendMessage = async () => {
@@ -95,6 +104,69 @@ export default function Home() {
     }
   };
 
+  const handleAddProfessor = () => {
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+    setProfessorURL('');
+    setRating(0); 
+    setReview('');
+    setUrlError('');
+    setRatingError('');
+  };
+
+  const handleAddURL = async () => {
+    if (!professorURL) {
+      setUrlError(true);
+      return;
+    }
+    
+    if (rating === 0) {
+      setRatingError(true);
+      return;
+    }
+    
+    setAddLoading(true); // Start loading state
+
+    try {
+      const response = await fetch('/api/data', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          professorURL,
+          rating,
+          review
+        })
+      });
+  
+      if (response.ok) {
+        const result = await response.json();
+        setSnackbarMessage('Professor added successfully!');
+        setSnackbarSeverity('success');
+        handleCloseDialog();
+      } else {
+        setSnackbarMessage('Failed to add professor. Please try again.');
+        setSnackbarSeverity('error');
+        handleCloseDialog();
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setSnackbarMessage('Failed to add professor. Please try again.');
+      setSnackbarSeverity('error');
+      handleCloseDialog();
+    } finally {
+      setAddLoading(false); // End loading state
+    }
+  };
+
+  const handleCloseSnackbar = () => {
+    setSnackbarMessage('');
+  };
+
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -124,7 +196,7 @@ export default function Home() {
         width="100%"
         maxWidth="450px"
         height="100%"
-        maxHeight="600px"
+        maxHeight="750px"
         border="1px solid #333333"
         borderRadius={8}
         bgcolor="#1f1f1f"
@@ -207,6 +279,7 @@ export default function Home() {
               },
             }}
           />
+          
           <Button
             variant="contained"
             onClick={sendMessage}
@@ -222,6 +295,161 @@ export default function Home() {
           </Button>
         </Stack>
       </CustomScrollBox>
+
+      <Button
+        variant="contained"
+        onClick={handleAddProfessor}
+        style={{
+          marginTop: '20px',
+          backgroundColor: '#2d6a4f',
+          color: '#ffffff',
+          borderRadius: 25,
+        }}
+      >
+        Add Professor
+      </Button>
+
+      <Dialog
+        open={openDialog}
+        onClose={handleCloseDialog}
+        PaperProps={{
+          style: {
+            backgroundColor: '#1f1f1f', 
+            color: '#e0e0e0', 
+            borderRadius: '8px', 
+            border: '1px solid #333333', 
+            boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.5)', 
+            width: '500px', 
+            maxWidth: 'none' 
+          },
+        }}
+      >
+        <DialogTitle style={{ color: '#e0e0e0', borderBottom: '1px solid #333333' }}>
+          Add Professor
+        </DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            label="Professor URL"
+            type="url"
+            fullWidth
+            variant="outlined"
+            value={professorURL}
+            onChange={(e) => setProfessorURL(e.target.value)}
+            error={urlError} 
+            helperText={urlError ? "URL is required" : ""} 
+            InputLabelProps={{
+              style: {
+                color: '#e0e0e0'
+              },
+            }}
+            InputProps={{
+              style: {
+                color: '#e0e0e0',
+                backgroundColor: '#333333',
+                borderRadius: '5px',
+              },
+            }}
+          />
+
+          <Box
+            display="flex"
+            alignItems="center"
+            mt={2}
+            mb={2}
+            sx={{
+              '& .MuiRating-root': {
+                 color: '#ffd700', 
+                 fontSize: '2rem', 
+              },
+             '& .MuiRating-iconEmpty': {
+               color: '#555555', 
+              },
+            }}
+          >
+            <Typography style={{ color: '#e0e0e0', marginRight: '8px' }}>Rating:</Typography>
+            <Rating
+              name="rating"
+              value={rating}
+              precision={0.25} 
+              onChange={(event, newValue) => {
+                setRating(newValue);
+                setRatingError(false); 
+              }}
+              max={5}
+              sx={{
+                color: ratingError ? 'red' : '#ffd700', 
+                fontSize: '2rem', 
+              }}
+            />
+            {ratingError && (
+              <Typography variant="caption" color="red">
+                Rating is required
+              </Typography>
+            )}
+          </Box>
+          <TextField
+            margin="dense"
+            label="Review/Comments"
+            type="text"
+            multiline
+            rows={4}
+            fullWidth
+            variant="outlined"
+            value={review}
+            onChange={(e) => setReview(e.target.value)}
+            InputLabelProps={{
+              style: {
+                color: '#e0e0e0'
+              },
+            }}
+            InputProps={{
+              style: {
+                color: '#e0e0e0',
+                backgroundColor: '#333333',
+                borderRadius: '5px',
+              },
+            }}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={handleCloseDialog}
+            style={{
+              backgroundColor: '#555555',
+              color: '#e0e0e0',
+              borderRadius: '5px',
+              marginRight: '10px',
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleAddURL}
+            variant="contained"
+            style={{
+              backgroundColor: '#457b9d',
+              color: '#ffffff',
+              borderRadius: '5px',
+            }}
+            disabled={addLoading} // Disable button while loading
+          >
+            {addLoading ? <CircularProgress size={24} color="inherit" /> : "Add"}
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Snackbar
+        open={!!snackbarMessage}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+      >
+        <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity} sx={{ width: '100%' }}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
+
     </Box>
   );
 }
