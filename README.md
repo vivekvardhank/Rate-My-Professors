@@ -1,95 +1,105 @@
+# Rate My Professor Support Agent
 
+## Overview
 
+This project is an AI-powered support agent designed for students to find and rate professors. Built with modern technologies, the agent leverages Retrieval-Augmented Generation (RAG) to provide personalized professor recommendations based on student queries.
 
-# Rate My Professors RAG App
+## Technologies Used
 
-Rate My Professors RAG App. This was created as a group project created by Rabia Ghafoor, Bhavana Gupta, Adeel Sameer, and Vivek Vardhan.
-
+- **Frontend**: Next.js, React, MUI (Material-UI), React Markdown
+- **Backend**: Node.js, Python
+- **AI & Data Handling**: OpenAI, Pinecone, Custom Python Scripts
 
 ## Features
 
-## Getting Started
+- **Interactive Chatbot**: The agent interacts with users to help them find the best professors according to their specific needs and preferences.
+- **Rate My Professor Integration**: Allows users to submit professor URLs, and the system automatically scrapes, processes, and stores the data in Pinecone.
+- **RAG Pipeline**: Uses Pinecone and OpenAI to retrieve and generate responses based on the professor's data.
+- **Dynamic Recommendations**: Provides top 3 professor recommendations based on the user's query.
+- **Professor Rating and Review**: Users can rate professors and leave reviews directly through the chatbot interface.
+
+## Setup and Installation
 
 ### Prerequisites
 
-- Node.js installed on your machine.
-- OpenAI API Key 
-- Pinecone API Key
+- **Node.js** (version 14 or above)
+- **Python** (3.8 or above, preferably installed via Conda)
+- **Pinecone API Key**
+- **OpenAI API Key**
+
+### Environment Variables
+
+Set up the following environment variables in your `.env` file:
+
+```
+OPENAI_API_KEY=your-openai-api-key
+PINECONE_API_KEY=your-pinecone-api-key
+```
 
 ### Installation
 
 1. Clone the repository:
 
-    ```bash
-    git clone https://github.com/Rabia-Ghafoor/Rate-My-Professors.git
-    ```
+```bash
+git clone https://github.com/yourusername/Rate-My-Professors.git
+cd Rate-My-Professors
+```
 
-2. Navigate to the project directory:
+2. Install the necessary Node.js dependencies:
 
-    ```bash
-    cd 
-    ```
+```bash
+npm install
+```
 
-3. Install dependencies:
+3. Create and activate a Python environment using Conda:
 
-    ```bash
-    npm install
-    ```
+```bash
+conda create -n rag python=3.8
+conda activate rag
+```
 
-### Environment Setup
+4. Install Python dependencies within the Conda environment:
 
-Create a `.env.local` file in the root directory and add your environment variables:
+```bash
+pip install -r requirements.txt
+```
 
-```plaintext
-NEXT_PUBLIC_FIREBASE_API_KEY=your-firebase-api-key
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-firebase-auth-domain
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=your-firebase-project-id
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your-firebase-storage-bucket
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your-firebase-messaging-sender-id
-NEXT_PUBLIC_FIREBASE_APP_ID=your-firebase-app-id
-NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=your-firebase-measurement-id
+### Local Development
 
-NEXT_PUBLIC_OPENAI_API_KEY=your-openai-api-key
-
-NEXT_PUBLIC_CLERK_FRONTEND_API=your-clerk-frontend-api
-CLERK_API_KEY=your-clerk-api-key
-
-STRIPE_SECRET_KEY=your-stripe-secret-key
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your-stripe-publishable-key
-
-
-First, run the development server:
+1. Start the Next.js development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Make sure to use the Conda environment (`rag`) for running Python scripts. Ensure that the local Python interpreter is set to the Conda environment in your development environment.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## API Endpoints
 
+### Chat API
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+- **Endpoint**: `/api/chat`
+- **Method**: `POST`
+- **Description**: Handles the chat interaction and returns responses based on user input.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Data API
 
-## Learn More
+- **Endpoint**: `/api/data`
+- **Method**: `POST`
+- **Description**: Processes the professor URL, scrapes the data, and upserts it into Pinecone.
 
-To learn more about Next.js, take a look at the following resources:
+## Running the Python Scripts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The project includes Python scripts that need to be executed during the data processing steps. Ensure that your environment is configured with the appropriate Conda Python interpreter. For instance:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```bash
+c:\Users\username\anaconda3\envs\rag\python.exe ./upload.py
+```
 
-## Deploy on Vercel
+## System Prompt
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The system uses a predefined prompt to guide the AI's responses. This prompt ensures that the AI provides consistent and relevant information based on the student's query.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Contributing
+
+Feel free to fork this repository and submit pull requests. If you have suggestions or find issues, please create an issue in the repository.
